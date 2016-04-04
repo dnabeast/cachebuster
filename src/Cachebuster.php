@@ -1,8 +1,8 @@
 <?php
 
-namespace Typesaucer\Cachebuster;
+namespace Typesaucer\CacheBuster;
 
-class Cachebuster
+class CacheBuster
 {
 
 	public function fire($fileName, $env = null)

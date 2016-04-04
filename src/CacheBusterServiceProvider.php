@@ -15,7 +15,7 @@ class CacheBusterServiceProvider extends ServiceProvider
     public function boot()
     {
         Blade::directive('cachebuster', function($expression){
-            return "<?= '/'. app('TypeSaucer\Cachebuster\Cachebuster')->fire($expression) ;?>";
+            return "<?= '/'. app('TypeSaucer\CacheBuster\CacheBuster')->fire($expression) ;?>";
         });
     }
 
@@ -26,9 +26,9 @@ class CacheBusterServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('\Typesaucer\Cachebuster\Cachebuster', function()
+        $this->app->singleton('\Typesaucer\CacheBuster\CacheBuster', function()
         {
-            return new Cachebuster;
+            return new CacheBuster;
         });
     }
 }
