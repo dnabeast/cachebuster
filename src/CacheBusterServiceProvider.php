@@ -4,6 +4,7 @@ namespace Typesaucer\CacheBuster;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Typesaucer\CacheBuster\CacheBuster;
 
 class CacheBusterServiceProvider extends ServiceProvider
 {
@@ -15,7 +16,7 @@ class CacheBusterServiceProvider extends ServiceProvider
     public function boot()
     {
         Blade::directive('cachebuster', function($expression){
-            return "<?= '/'. app('TypeSaucer\CacheBuster\CacheBuster')->fire($expression) ;?>";
+            return "<?= '/'. app('CacheBuster')->fire($expression) ;?>";
         });
     }
 
@@ -26,7 +27,7 @@ class CacheBusterServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('\Typesaucer\CacheBuster\CacheBuster', function()
+        $this->app->singleton('CacheBuster', function()
         {
             return new CacheBuster;
         });

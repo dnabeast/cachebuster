@@ -48,9 +48,6 @@ class CacheBuster
 			// Potential case sensativity issue
 		copy($fileName, $this->newBuildFileName);
 
-		$firsttime = new FirstTime;
-		$firsttime->putNewKey();
-
 		return $this->newBuildFileName;
 	}
 
