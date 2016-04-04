@@ -1,0 +1,24 @@
+{
+    "name": "typesaucer/cachebuster",
+    "description": "Create new css and js files to bust long cached files",
+    "license": "MIT",
+    "keywords": ["laravel", "blade", "cache"],
+    "authors": [
+        {
+            "name": "Dan Beeston",
+            "email": "dan@civicnet.com.au"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "illuminate/support": "^5.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Typesaucer\\CacheBuster\\": "src/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8"
+    }
+}
