@@ -5,7 +5,7 @@ namespace Typesaucer\CacheBuster;
 class CacheBuster
 {
 
-	public function fire($fileName, $env = null)
+	public function fire($fileName, $fileLocation = null, $env = null)
 	{
 
 		// if is local then return unchanged
@@ -14,25 +14,33 @@ class CacheBuster
 
 		$env!=null?:$env = getenv('APP_ENV');
 
-		if ($env=='local'||$env=='testing') return $fileName;
+		if (getenv('APP_ENV') == 'testing') {
+			$basePath = $_SERVER['PWD'].'/tests/public/';
+		} else {
+			$basePath = public_path();
+		}
+
+		$fileName = $fileLocation. $fileName;
+
+		if ($env=='local') return $fileName;
 
 		$this->file = pathinfo($fileName);
 
-		$buildDirectoryList = scandir(public_path().'/'.$this->file['dirname'].'/build');
+		$buildDirectoryList = scandir($basePath.$this->file['dirname'].'/build');
 
 		$buildFileName = $this->getBuildFileName($buildDirectoryList, $fileName);
 
 		if($buildFileName){
 			$buildFileName = $this->file['dirname'].'/build/'.$buildFileName;
 
-			$this->cssFileIsOlderThanBuildFile = filemtime($fileName)<filemtime($buildFileName);
-			$this->fileSizeEqual = (0==(filesize($fileName)-filesize($buildFileName)));
+			$this->cssFileIsOlderThanBuildFile = filemtime($basePath.$fileName)<filemtime($basePath.$buildFileName);
+			$this->fileSizeEqual = (0==(filesize($basePath.$fileName)-filesize($basePath.$buildFileName)));
 
 			if($this->cssFileIsOlderThanBuildFile&&$this->fileSizeEqual) {
 				return $buildFileName;
 			}
 
-			unlink($buildFileName);
+			unlink($basePath.$buildFileName);
 		};
 
 
@@ -45,11 +53,24 @@ class CacheBuster
 			'.'.
 			$this->file['extension'];
 
-			// Potential case sensativity issue
-		copy($fileName, $this->newBuildFileName);
+			// Potential case sensitivity issue
+		copy($basePath.$fileName, $basePath.$this->newBuildFileName);
 
 		return $this->newBuildFileName;
 	}
+
+
+
+	public function css($fileName, $env = null)
+	{
+		return $this->fire($fileName, 'css/', $env);
+	}
+
+	public function js($fileName, $env = null)
+	{
+		return $this->fire($fileName, 'js/', $env);
+	}
+
 
 	public function randomString()
 	{
