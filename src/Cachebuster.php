@@ -17,7 +17,7 @@ class CacheBuster
 		if (getenv('APP_ENV') == 'testing') {
 			$basePath = $_SERVER['PWD'].'/tests/public/';
 		} else {
-			$basePath = public_path();
+			$basePath = public_path().'/';
 		}
 
 		$fileName = $fileLocation. $fileName;
