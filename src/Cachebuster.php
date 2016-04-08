@@ -26,6 +26,10 @@ class CacheBuster
 
 		$this->file = pathinfo($fileName);
 
+		if (!file_exists($basePath.$this->file['dirname'].'/build')) {
+			mkdir($basePath.$this->file['dirname'].'/build');
+		}
+
 		$buildDirectoryList = scandir($basePath.$this->file['dirname'].'/build');
 
 		$buildFileName = $this->getBuildFileName($buildDirectoryList, $fileName);

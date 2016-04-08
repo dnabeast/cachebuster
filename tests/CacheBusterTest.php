@@ -94,4 +94,27 @@ class CacheBusterTest extends PHPUnit_Framework_TestCase
 		$parsed = $cachebuster->getBuildFilename($arrayOfMockedFilenames, $filename);
 		return $this->assertFalse($parsed);
 	}
+
+	/** @test */
+	function if_no_build_directory_exists_if_creates_a_new_one_and_sets_it_to_writable()
+	{
+		$cssDirectory = $_SERVER['PWD'].'/tests/public/builddir/';
+
+		$createfile = fopen($cssDirectory.'style.css', 'w') or die('Cannot open file:  '.$my_file);
+
+		$cachebuster = new CacheBuster;
+		$parsed = $cachebuster->fire('builddir/style.css', '', 'production', 'testing');
+		$expected = 'builddir/style.css';
+
+		unlink($cssDirectory.'style.css');
+		unlink($cssDirectory.'/../'.$parsed);
+		rmdir($cssDirectory."/build");
+
+		return $this->assertRegExp('/^builddir\/build\/style\.[\w\d]{8}.css$/', $parsed);
+
+
+	}
+
+
+
 }
