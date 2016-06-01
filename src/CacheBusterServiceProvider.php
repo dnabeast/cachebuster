@@ -1,10 +1,10 @@
 <?php
 
-namespace Typesaucer\CacheBuster;
+namespace DNABeast\CacheBuster;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Typesaucer\CacheBuster\CacheBuster;
+use DNABeast\CacheBuster\CacheBuster;
 
 class CacheBusterServiceProvider extends ServiceProvider
 {

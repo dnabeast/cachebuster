@@ -1,5 +1,5 @@
 {
-    "name": "typesaucer/cachebuster",
+    "name": "dnabeast/cachebuster",
     "description": "Create new css and js files to bust long cached files",
     "license": "MIT",
     "keywords": ["laravel", "blade", "cache"],
@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Typesaucer\\CacheBuster\\": "src/"
+            "DNABeast\\CacheBuster\\": "src/"
         }
     },
     "require-dev": {
