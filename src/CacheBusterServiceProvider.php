@@ -29,7 +29,7 @@ class CacheBusterServiceProvider extends ServiceProvider
     {
         $this->app->singleton('CacheBuster', function()
         {
-            return new CacheBuster;
+            return new CacheBuster(env('APP_ENV'));
         });
     }
 }
