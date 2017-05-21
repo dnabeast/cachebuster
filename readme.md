@@ -24,3 +24,8 @@ In a blade file:
 @cachebuster('css/style.css')
 
 If in a production environment it checks whether the file is older or a different size and if it is creates a new build file. Good for busting long caches set by your server.
+
+You may need to clear the view cache.
+```
+php artisan view:clear
+```
